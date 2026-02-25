@@ -51,11 +51,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Build Backend Docker Image
-        run: docker build -t cravehaven-backend ./server
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Frontend Docker Image
-        run: docker build -t cravehaven-frontend ./client
+      - name: Build Backend Image
+        run: |
+          docker build -t amithsubodh/cravehaven-backend:latest ./server
+          docker push amithsubodh/cravehaven-backend:latest
+
+      - name: Build Frontend Image
+        run: |
+          docker build -t amithsubodh/cravehaven-frontend:latest ./client
+          docker push amithsubodh/cravehaven-frontend:latest
 
       - name: Validate docker-compose File
         run: docker compose -f docker-compose.yml config
