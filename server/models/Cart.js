@@ -30,7 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  });
+  },
+  {
+    tableName: "carts",
+    freezeTableName: true
+  }
+);
 
   return Cart;
 };

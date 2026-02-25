@@ -17,7 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.NOW,
         allowNull: false,
       },
-    });
+    },
+    {
+      tableName: "contacts",
+      freezeTableName: true
+    }
+  );
     return Contact;
   };
   

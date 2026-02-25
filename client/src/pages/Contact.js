@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -13,16 +13,16 @@ function ContactUs() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post(`${API_URL}/contact`, formData);
-      console.log("Message submitted successfully!");
+      alert("Message submitted successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("Error submitting message:", error);
-      console.log("Failed to submit message. Please try again later.");
+      alert("Failed to submit message.");
     }
   };
 

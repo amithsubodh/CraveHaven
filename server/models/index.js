@@ -1,11 +1,12 @@
-require("dotenv").config();
-
 'use strict';
+
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const process = require('process');
 
 const basename = path.basename(__filename);
 
@@ -18,12 +19,12 @@ const config = {
 };
 
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: config.host,
-    dialect: config.dialect
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
   }
 );
 

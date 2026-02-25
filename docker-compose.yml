@@ -1,0 +1,46 @@
+services:
+
+  db:
+    image: mysql:8
+    container_name: cravehaven-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbms
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpassword
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./server/init-db:/docker-entrypoint-initdb.d
+
+
+  backend:
+    build: ./server
+    container_name: cravehaven-backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      DB_HOST: db
+      DB_USER: devuser
+      DB_PASSWORD: devpassword
+      DB_NAME: dbms
+      DB_DIALECT: mysql
+      PORT: 3001
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./client
+      args:
+        REACT_APP_API_URL: http://localhost:3001
+    container_name: cravehaven-frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:

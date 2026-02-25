@@ -24,7 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.JSON,
       allowNull: false,
     },
-  });
+  },
+  {
+    tableName: "menuitems",
+    freezeTableName: true
+  }
+);
 
   return MenuItem;
 };

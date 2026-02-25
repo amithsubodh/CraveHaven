@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  });
+  },
+  {
+    tableName: "users",
+    freezeTableName: true
+  }
+);
   return Users;
 };

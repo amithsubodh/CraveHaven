@@ -29,7 +29,7 @@ app.use("/contact", contRouter);
 // config the db in config folder so that it knows which db to use
 const PORT = process.env.PORT || 3001;
 
-db.sequelize.sync().then(() => {
+db.sequelize.authenticate().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });

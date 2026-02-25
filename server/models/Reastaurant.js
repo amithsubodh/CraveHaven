@@ -20,7 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-  });
+  },
+  {
+    tableName: "restaurants",
+    freezeTableName: true
+  }
+);
 
   // Define association to MenuItem model
   Restaurant.associate = (models) => {
