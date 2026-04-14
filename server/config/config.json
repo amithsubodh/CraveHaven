@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
-    "database": "dbms",
-    "host": "127.0.0.1",
+    "username": "devuser",
+    "password": "devpass",
+    "database": "cravehaven",
+    "host": "mysql",
     "dialect": "mysql"
   },
   "test": {

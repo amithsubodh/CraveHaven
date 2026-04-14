@@ -1,20 +1,25 @@
-# Use official Node image
-FROM node:18
+# 🔹 Stage 1 — Build
+FROM node:18-alpine AS builder
 
-# Create app directory inside container
 WORKDIR /app
 
-# Copy package.json and package-lock.json first
-COPY package*.json ./
+# Install required build tools (SAFE)
+RUN apk add --no-cache python3 make g++
 
-# Install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Copy rest of backend code
 COPY . .
 
-# Expose backend port
+# 🔹 Stage 2 — Production
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app /app
+
+RUN npm prune --production
+
 EXPOSE 3001
 
-# Start backend server
 CMD ["node", "index.js"]
