@@ -26,9 +26,22 @@ spec:
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_DATABASE
               value: cravehaven
+
           volumeMounts:
+            # ✅ MAIN DATABASE STORAGE
             - name: mysql-storage
-              mountPath: /var/lib/mysql   # 🔥 IMPORTANT
+              mountPath: /var/lib/mysql
+
+            # 🔥 NEW: SQL INIT MOUNT
+            - name: mysql-init-script
+              mountPath: /docker-entrypoint-initdb.d
+
+      # 🔥 NEW: CONFIGMAP VOLUME
+      volumes:
+        - name: mysql-init-script
+          configMap:
+            name: mysql-init-script
+
   volumeClaimTemplates:
     - metadata:
         name: mysql-storage
