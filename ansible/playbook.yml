@@ -1,0 +1,37 @@
+- name: Full DevOps Automation
+  hosts: local
+  become: false
+
+  tasks:
+
+    - name: Apply Terraform Infrastructure
+      command: terraform apply -auto-approve
+      args:
+        chdir: ../terraform
+
+    - name: Verify running containers
+      command: docker ps
+      register: docker_output
+
+    - name: Display running services
+      debug:
+        msg: "{{ docker_output.stdout }}"
+
+    - name: Ensure backend is running
+      command: docker start tf-backend
+      ignore_errors: yes
+
+    - name: Ensure frontend is running
+      command: docker start tf-frontend
+      ignore_errors: yes
+
+    - name: Ensure mysql is running
+      command: docker start tf-mysql
+      ignore_errors: yes
+
+
+
+
+
+
+

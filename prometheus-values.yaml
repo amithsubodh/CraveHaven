@@ -1,0 +1,20 @@
+alertmanager:
+  enabled: false
+
+pushgateway:
+  enabled: false
+
+kube-state-metrics:
+  enabled: false
+
+nodeExporter:
+  enabled: false
+
+server:
+  resources:
+    requests:
+      memory: "250Mi"
+      cpu: "150m"
+    limits:
+      memory: "400Mi"
+      cpu: "250m"
