@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🍔 CraveHaven
 
@@ -458,4 +458,3 @@ helm install grafana grafana/grafana -f grafana-values.yaml
 **Built with 🧠 by [amithsubodh](https://github.com/amithsubodh)**
 
 </div>
-]]>
